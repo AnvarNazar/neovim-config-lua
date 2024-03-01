@@ -5,6 +5,7 @@ return {
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		lspconfig.html.setup {}
 		lspconfig.pyright.setup {}
+		lspconfig.tsserver.setup {}
 		lspconfig.intelephense.setup{
 			capabilities = capabilities 
 		}
