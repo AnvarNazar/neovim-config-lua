@@ -18,7 +18,6 @@ return {
 		lspconfig.clangd.setup {
 			capabilities = capabilities,
 		}
-		lspconfig.stimulus_ls.setup {}
 		lspconfig.cmake.setup {}
 		lspconfig.elmls.setup {}
 		vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
