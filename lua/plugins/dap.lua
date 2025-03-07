@@ -8,6 +8,12 @@ return {
 			args = { os.getenv("HOME") .. "/vscode-php-debug/out/phpDebug.js"},
 		}
 
+        dap.adapters.cppdbg = {
+            id = 'cppdbg',
+            type = 'executable',
+            command = '/home/anvar/Programs/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
+        }
+
 		dap.configurations.php = {
 			{
 				type = "php",
@@ -16,6 +22,35 @@ return {
 				port = 9003,
 			},
 		}
+
+        dap.configurations.c = {
+            {
+                name = "Launch file",
+                type = "cppdbg",
+                request = "launch",
+                program = function()
+                  return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                args = function ()
+                    local args_str = vim.fn.input("Arguments: ")
+                    return vim.split(args_str, " ")
+                end,
+                stopAtEntry = false,
+            },
+            -- {
+            --     name = 'Attach to gdbserver :1234',
+            --     type = 'cppdbg',
+            --     request = 'launch',
+            --     MIMode = 'gdb',
+            --     miDebuggerServerAddress = 'localhost:1234',
+            --     miDebuggerPath = '/usr/bin/gdb',
+            --     cwd = '${workspaceFolder}',
+            --     program = function()
+            --       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            --     end,
+            -- },
+        }
 
 		vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
 		vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
